@@ -27,10 +27,12 @@
     // name : 이름 1, 이름2
     // hobby : 선택한 취미들을 out.print()
     Enumeration<String> parameterNames = request.getParameterNames();
+
     while (parameterNames.hasMoreElements()){
         String param = parameterNames.nextElement(); //name, hobby
 
         // for문 쓰면 되긴하는데..
+
         out.print(param + " : " + Arrays.toString(request.getParameterValues(param)));
     }
     out.print("<br>");

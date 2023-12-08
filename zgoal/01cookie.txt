@@ -1,0 +1,11 @@
+Cookie
+
+cookie 정의 - 웹브라우저 데이터 저장소
+
+cookie 동작 방식 이해
+cookie jsp에서 CRUD
+
+cookie 속성 - 이름, 값, 유효시간, 도메인, 경로
+
+cookie를 활용한 로그인문제 해결
+

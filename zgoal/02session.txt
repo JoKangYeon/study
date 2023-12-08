@@ -1,0 +1,12 @@
+session
+
+session 정의 - 서버가 브라우저를 구별하기 위해 만든 객체
+
+session 속성 : 생성시간, 접근시간, set/get Attribute 사용
+
+session cookie 사용 용도
+session은 로그인, 장바구니 등
+cookie : 오늘은 공지사항 안보기. 등
+
+
+session을 활용한 로그인 문제

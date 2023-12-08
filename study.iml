@@ -30,5 +30,6 @@
         <jarDirectory url="file://$USER_HOME$/atools/apache-tomcat-9.0.83/lib" recursive="false" />
       </library>
     </orderEntry>
+    <orderEntry type="library" exported="" name="lib" level="project" />
   </component>
 </module>
