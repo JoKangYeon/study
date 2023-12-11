@@ -17,9 +17,18 @@
 	<%@include file="/WEB-INF/inc/top.jsp"%>
 
 	<%
-		if(request.getParameter("login").equals("isTrue")){
+		String user = request.getParameter("remember");
+	%>
 
-		}
+	<%
+		if (request.getParameter("login") != null) {
+
+
+	%>
+	로그인 중
+	<a href="logout.jsp" class="btn btn-success btn-sm">로그아웃</a>
+	<%
+		}else{
 
 	%>
 
@@ -35,10 +44,21 @@
 			%>
 			<table class="table table-bordered">
 				<tbody>
-					<tr>
-						<th>아이디</th>
-						<td><input type="text" name="userId"
-							class="form-control input-sm" value=""></td>
+				<tr>
+					<% if (user != null) {
+					%>
+
+					<th> 아이디</th>
+					<td><input type="text" name="userId"
+							   class="form-control input-sm" value=<%=user%>></td>
+					<%
+					} else {
+					%>
+					<th> 아이디</th>
+					<td><input type="text" name="userId"
+							   class="form-control input-sm" value=""></td>
+					<%
+					}%>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
@@ -59,7 +79,7 @@
 		</form>
 	</div>
 	<!-- container -->
-		로그인 중
-	<a href="logout.jsp" class="btn btn-success btn-sm">로그아웃</a>
+	<%
+		}%>
 </body>
 </html>

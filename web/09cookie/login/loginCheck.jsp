@@ -20,14 +20,9 @@
 http://localhost:8080/09cookie/login/login.jsp
 
 <%
-	com.study.common.util.UserVO user = new com.study.common.util.UserVO();
 	String userId = request.getParameter("userId");
 	String userPw = request.getParameter("userPass");
 	String rememberYN = request.getParameter("rememberMe");
-	user.setUserId(userId);
-	user.setUserPass(userPw);
-	user.setUserName("sada");
-	user.setUserRole("asd");
 
 	UserList userList = new UserList();
 
@@ -36,12 +31,18 @@ http://localhost:8080/09cookie/login/login.jsp
 	}else if(userList.getUser(userId) == null){
 		response.sendRedirect("/09cookie/login/login.jsp?msg=" + URLEncoder.encode("아이디 또는 비밀번호를 확인해주세요", "utf-8"));
 	}else if(userList.getUser(userId).getUserId().equals(userId) && userList.getUser(userId).getUserPass().equals(userPw)){
-		Cookie cookie = new Cookie("AUTH", userId);
-		response.sendRedirect("/09cookie/login/login.jsp?login=" + URLEncoder.encode("isTrue", "utf-8"));
-		if (rememberYN.equals("Y")){
+		if(rememberYN == null){
+			System.out.println(rememberYN);
+			Cookie cookie = CookieUtils.createCookie("rememberMe", userId, "/", 0);
+			response.addCookie(cookie);
+		} else if(rememberYN.equals("Y")){
+			System.out.println(rememberYN);
 			Cookie newCookie = CookieUtils.createCookie("rememberMe", userId, "/", (60 * 60 * 24 * 7));
 			response.addCookie(newCookie);
 		}
+		Cookie cookie = new Cookie("AUTH", userId);
+		response.addCookie(cookie);
+		response.sendRedirect("/09cookie/login/login.jsp?login=" + URLEncoder.encode("isTrue", "utf-8"));
 	}else{
 		response.sendRedirect("/09cookie/login/login.jsp?msg=" + URLEncoder.encode("아이디 또는 비밀번호를 확인해주세요", "utf-8"));
 	}
