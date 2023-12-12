@@ -1,6 +1,7 @@
-<%@page import="com.study.login.vo.UserVO"%>
 <%@page import="com.study.common.util.CookieUtils"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="com.study.login.vo.UserVO" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
@@ -12,52 +13,62 @@
 <title>Insert title here</title>
 </head>
 <body>
+	
+	
 	<%@include file="/WEB-INF/inc/top.jsp"%>
 
-
+	<%
+		String user = request.getParameter("remember");
+	%>
 
 	<%
-		String msg = request.getParameter("msg");
-	String id = "";
-	String checked = "";
+		if (request.getParameter("login") != null) {
+		UserVO user2 = (UserVO) session.getAttribute("USER_INFO");
 
-	if (msg != null) {
-		out.print(msg);
-	}
-	CookieUtils cookieUtils = new CookieUtils(request);
-
-	if (cookieUtils.exists("rememberMe")) {
-		id = cookieUtils.getValue("rememberMe");
-		checked = "checked='checked'";
-	}
-	
-	
-	UserVO user=(UserVO)session.getAttribute("USER_INFO");
-	if (user!=null) {
 	%>
-	로그인 중
-	 <br> id : <%=user.getUserId() %> , 이름 : <%=user.getUserName() %>, 역할 : <%=user.getUserRole() %>
-	    <a href="logout.jsp" class="btn btn-success btn-sm">로그아웃</a>
+	<br> 아이디: <%=user2.getUserId()%> 이름: <%=user2.getUserName()%> 역할: <%=user2.getUserRole()%> 로그인 중
+	<a href="logout.jsp" class="btn btn-success btn-sm">로그아웃</a>
 	<%
-		} else {
+		}else{
+
 	%>
+
 
 
 	<div class="container">
 		<form action="loginCheck.jsp" class="loginForm">
 			<h2>로그인</h2>
+			<%
+				if(request.getParameter("msg") != null){
+					out.print(request.getParameter("msg"));
+				}
+			%>
 			<table class="table table-bordered">
 				<tbody>
-					<tr>
-						<th>아이디</th>
-						<td><input type="text" name="userId" class="form-control input-sm" value="<%=id%>"></td>
+				<tr>
+					<% if (user != null) {
+					%>
+
+					<th> 아이디</th>
+					<td><input type="text" name="userId"
+							   class="form-control input-sm" value=<%=user%>></td>
+					<%
+					} else {
+					%>
+					<th> 아이디</th>
+					<td><input type="text" name="userId"
+							   class="form-control input-sm" value=""></td>
+					<%
+					}%>
 					</tr>
 					<tr>
 						<th>비밀번호</th>
-						<td><input type="password" name="userPass" class="form-control input-sm"></td>
+						<td><input type="password" name="userPass"
+							class="form-control input-sm"></td>
 					</tr>
 					<tr>
-						<td colspan="2"><label><input type="checkbox" name="rememberMe" value="Y" <%=checked %>>ID 기억하기</label></td>
+						<td colspan="2"><label><input type="checkbox"
+								name="rememberMe" value="Y" >ID 기억하기</label></td>
 					</tr>
 					<tr>
 						<td colspan="2">
@@ -69,6 +80,7 @@
 		</form>
 	</div>
 	<!-- container -->
-	<%}%>
+	<%
+		}%>
 </body>
 </html>

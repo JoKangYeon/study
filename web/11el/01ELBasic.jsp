@@ -1,4 +1,5 @@
-<%@ page import="com.study.common.util.UserVO" %>
+
+<%@ page import="com.study.login.vo.UserVO" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
     request.setCharacterEncoding("UTF-8");
