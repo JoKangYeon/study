@@ -1,0 +1,30 @@
+DB
+
+EL-JSTL은 DB에서 가져온 데이터를 화면에 잘 보여주는데 사용
+DB에서 데이터를 가지고 오는거 (자바를 이용해서)
+
+JDBC를 이용해 DB 연동 기초
+
+JDBC 코딩 순서
+1. 드라이버 로드
+2. DB 연결
+3. 쿼리 실행 - 여기를 CRUD 별 쿼리 실행 할 수 있도록.
+4. 종료
+
+Connection, StateMent와 PreparedStatement, ResultSet
+
+DB연동하면서 하는 실수들
+1. 띄어쓰기 "SELECT bo_no, bo_wirter"
+            + "FROM free_board"     ==> "....bo.writerFROM freeBoard  "
+2. commit 안하면 데이터 없음
+3. 쿼리뿐만 아니라 rs.get..()에서 컬럼명도 맞춰줘야 한다
+
+4. 자바에서 try{} catch{} 를 하면, try{} 부분에서 실행하다가 에러가 났을 때
+   우리는 아직 e.printStackTrace()만 하고 있음
+   sql 부분에서 문제가 생겨도 요청은 잘 처리함
+
+5. try{} catch{} finally => try_with_resources 사용합시다
+6. StateMent 보다는 PrepareStateMent 사용하기
+
+
+DBCP 쓰는 이유

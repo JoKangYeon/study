@@ -1,0 +1,28 @@
+공통 
+List -> view -> edit   -> modify  
+                       ->delete 
+       
+       form - > regist                   
+
+List: 테이블에서 여러개의 데이터 보여주기
+view: 테이블에서 where조건절로 1개 데이터  자세히 보여주기. 사용자 입력x only 구경
+edit :  테이블에서 where조건절로 1개 데이터  자세히 보여주기,  사용자가 입력 가능. form태그 있음 
+modify : edit(form태그)에서 넘어온 파라미터를 DB에서 update
+delete : edit에서 넘어온 파라미터(글번호 있음)가지고 DB에서 *_del_yn을 'Y'로 업데이트 
+form : form태그가있어요. 사용자가 여러 데이터 입력
+regist : form에서 온 데이터가지고 DB에 insert 
+
+
+free_board :자유게시판 아무나 글쓴다. 글 쓸 때 썼던 비밀번호가지고 글 수정 삭제 확인합니다.
+member : 회원정보.  비밀번호도 바꿀 수 있어야합니다.   
+
+게시판 흐름을 이해해야 구현할 수 있음
+
+
+
+
+
+
+
+
+

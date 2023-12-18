@@ -1,0 +1,23 @@
+06 계층화 아키텍처
+
+JSP가 혼자 너무 많은 역할을 합니다.
+계층을 나눠야 한다. => 5계층으로 일반적으로 나뉨
+
+1. Presendation Layer   - View          화면
+2. Controller Layer     - Controller    요청관련 여러가지
+3. Business Layer       - Service       비즈니스 로직
+4. Persitence Layer     - DAO           DB접근
+5. Domain Layer         - VO,DTO        데이터 객체
+
+- 예외처리에 관하여
+Exception : CheckedException, UncheckedException (RuntimException)
+
+RuntimException은 보통 에러 발생하면
+에러를 보고 뭘 잘못했는지 알게됨 => 따로 try -catch를 안함
+
+CheckedException : try -catch를 해야됨
+1. 블랙홀(아무것도 안함)
+2. 단순 e.printStackTrace()
+3. 적절하게 처리
+ -복구
+ -전환
