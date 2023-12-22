@@ -6,7 +6,7 @@
     
 <!--    <servlet>-->
 <!--        <servlet-name>sum</servlet-name>-->
-<!--        <servlet-class>com.study.servlet.SumServlet</servlet-class>-->
+<!--        <servlet-class>com.study.servlet.etc.SumServlet</servlet-class>-->
 <!--    </servlet>-->
 <!--    -->
 <!--    <servlet-mapping>-->
@@ -15,11 +15,11 @@
 <!--    </servlet-mapping>-->
 <!--    -->
 
-    <servlet>
-        <servlet-name>DriverLoader</servlet-name>
-        <servlet-class>com.study.servlet.DriverLoader</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
+<!--    <servlet>-->
+<!--        <servlet-name>DriverLoader</servlet-name>-->
+<!--        <servlet-class>com.study.servlet.DriverLoader</servlet-class>-->
+<!--        <load-on-startup>1</load-on-startup>-->
+<!--    </servlet>-->
 
 
 

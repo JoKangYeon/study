@@ -1,0 +1,18 @@
+mybatis
+
+원리 : 자바의 reflection
+
+
+Presentation, Controller, Business, Persistence, Domain 5계층 중 Persistence framework
+view          controller    service    dao        vo
+          DispatcherServlet      SQLMapper(mybatis)
+
+사용법 : 홈페이지 참고
+
+준비
+mapper(xml)만들기 + 문법
+service에서 xml 호출하는 법    -   (DaoOracle.java를 삭제하고, 대신 mybatis xml파일이 실행됨)
+JDBC사용x, mybatis가 대신함. ==> DriverLoader 삭제. mybatis 설정파일 SQLSessionFactory가 대신
+
+
+Library vs Framework    / mybatis는 프레임워크이다

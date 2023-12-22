@@ -21,7 +21,7 @@
 <jsp:useBean id="user" class="com.study.login.vo.UserVO"></jsp:useBean>
 <%--<jsp:setProperty name="user" property="userId"value="<%=request.getParameter("userId")%>"></jsp:setProperty>--%>
 <jsp:setProperty name="user" property="*"></jsp:setProperty>
-<%=user%>
+<%=user.getUserRole()%>
 
 <%--UserVO의 필드이름이랑 request의 파라미터 이름이 같아야 한다. --%>
 

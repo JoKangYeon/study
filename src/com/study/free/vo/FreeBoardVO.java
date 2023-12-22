@@ -16,6 +16,8 @@ public class FreeBoardVO {
     private String boModDate;               /* 수정 일자 */
     private String boDelYn;                 /* 삭제 여부 */
 
+    private String boCategoryNm;             /*글 분류 이름 */
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
@@ -99,6 +101,14 @@ public class FreeBoardVO {
 
     public void setBoDelYn(String boDelYn) {
         this.boDelYn = boDelYn;
+    }
+
+    public String getBoCategoryNm() {
+        return boCategoryNm;
+    }
+
+    public void setBoCategoryNm(String boCategoryNm) {
+        this.boCategoryNm = boCategoryNm;
     }
 }
 

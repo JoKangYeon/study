@@ -1,12 +1,90 @@
+import com.study.free.vo.FreeBoardVO;
 import oracle.jdbc.driver.OracleDriver;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InstantiationException, IllegalAccessException, InvocationTargetException {
+
+        //Reflection, Class
+
+        //Class.    자바의 class 중 하나입니다. String class, Class class 처럼
+        //Class<FreeBoardVO>. FreeBoardVO class의 정보를 가지고 있는 Class class입니다
+        // 필드, 메소드, 생성자 등에 관한 정보가 있습니다 이걸 이용해 객체생성, 메소드실행도 가능
+
+//        Class clazzFree = Class.forName("com.study.free.vo.FreeBoardVO");
+        Class clazzFree = FreeBoardVO.class;
+
+//        // 현재 class 이름
+//        System.out.println("classFree 이름 :" + clazzFree.getName());
+//        System.out.println("classFree 간단이름 :" + clazzFree.getSimpleName());
+//        System.out.println("--------------------------------------------------------");
+//
+//        // 모든필드
+//        Field[] declaredFields = clazzFree.getDeclaredFields();     //declared랑 아닌거 : private도 접근가능
+//        for(Field field : declaredFields){
+//            System.out.println("필드 이름 : " + field.getName());
+//            System.out.println("필드 타입 이름 : " + field.getType().getName());
+//            System.out.println("필드 타입 간단이름 : " + field.getType().getSimpleName());
+//            System.out.println();
+//        }
+
+        //모든 메소드
+        Method[] declaredMethods = clazzFree.getDeclaredMethods();
+        for(Method method : declaredMethods){
+            System.out.println("메소드 이름 : " + method.getName() );
+            System.out.println("메소드 리턴 타입 : " + method.getReturnType().getSimpleName());
+            Parameter[] parameters = method.getParameters();
+            if (parameters.length > 0){ //아마도 set
+                for (Parameter parameter : parameters){
+                    System.out.println("파라미터 이름 : " + parameter.getName());
+                    System.out.println("파라미터 타입 : " + parameter.getType().getSimpleName());
+                }
+            }else{//아마도 get + toString
+                System.out.println("파라미터 없음");
+            }
+        }
+
+
+        System.out.println("-------------------------------------------------------");
+//        FreeBoardVO freeBoard = new FreeBoardVO();
+        FreeBoardVO freeBoardVO = (FreeBoardVO) clazzFree.newInstance();
+        Method[] methods = clazzFree.getDeclaredMethods();
+        for(Method method : methods){
+            String methodName = method.getName();
+            if(methodName.startsWith("set")){
+                Parameter[] parameters = method.getParameters();
+                if(parameters[0].getType().getSimpleName().equals("int")){
+                    method.invoke(freeBoardVO, 5);
+                }else if(parameters[0].getType().getSimpleName().equals("String")){
+                    method.invoke(freeBoardVO, "String 값");
+                }
+            }
+        }
+        System.out.println(freeBoardVO);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //        //LocalDate LocalTime LocalDateTime를 쓰자..
 //
@@ -35,19 +113,38 @@ public class Main {
 //        System.out.println(date);
 //        System.out.println(Timestamp.valueOf(LocalDateTime.now()));
 
-        OracleDriver oracleDriver = null;
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@nextit.or.kr:1521:xe", "std205", "oracle21c");
+//        OracleDriver oracleDriver = null;
+//        try {
+//            Connection connection = DriverManager.getConnection("jdbc:oracle:thin:@nextit.or.kr:1521:xe", "std205", "oracle21c");
+//
+//            Statement stmt = connection.createStatement();
+//            ResultSet rs = stmt.executeQuery(" select 99 from dual");
+//
+//            rs.next();
+//            System.out.println(rs.getInt(1));
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
-            Statement stmt = connection.createStatement();
-            ResultSet rs = stmt.executeQuery(" select 99 from dual");
+    }
 
-            rs.next();
-            System.out.println(rs.getInt(1));
-
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static Object etAllfields(Class clazz) throws Exception{
+        Object o = clazz.newInstance();
+        Method[] methods = clazz.getDeclaredMethods();
+        for(Method method : methods){
+            String methodName = method.getName();
+            if(methodName.startsWith("set")){
+                Parameter[] parameters = method.getParameters();
+                if(parameters[0].getType().getSimpleName().equals("int")){
+                    method.invoke(o, 5);
+                }else if(parameters[0].getType().getSimpleName().equals("String")){
+                    method.invoke(o, "String 값");
+                }
+            }
         }
+        return o;
+
 
     }
 }

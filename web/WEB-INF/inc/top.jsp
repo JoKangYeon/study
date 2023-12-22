@@ -22,10 +22,10 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">게시판 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a href="freeList.jsp">자유게시판</a></li>
+                <li><a href="/free/freeList.wow">자유게시판</a></li>
                 <li><a href="#">자료실</a></li>
                 <li><a href="#">공지사항</a></li>
-                 <li><a href="memberList.jsp">회원목록</a></li>
+                 <li><a href="/member/memberList.wow">회원목록</a></li>
                 <li class="divider"></li>
                 <li class="dropdown-header">Nav header</li>
                 <li><a href="#">Separated link</a></li>
@@ -35,12 +35,12 @@
           </ul>
           <ul class="nav navbar-nav navbar-right">
          
-           <li><a href="#">로그인</a></li>
+           <li><a href="/login/login.wow">로그인</a></li>
             <li><a href="#">회원가입</a></li> 
          
             
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><%-- <%=user.getUserName()%> --%>님 <span class="caret"></span></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">${USER_INFO.userName}님 <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a href="#">
 	                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>
@@ -55,7 +55,7 @@
                 	&nbsp;&nbsp;1:1 문의게시판
                 	</a></li>
                 <li class="divider"></li>
-                <li><a href="#">
+                <li><a href="index.wow">
                 	<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
                 	&nbsp;&nbsp;로그아웃
                 	</a></li>

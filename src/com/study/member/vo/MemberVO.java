@@ -18,6 +18,9 @@ public class MemberVO {
     private int memMileage;                 /* 회원마일리지 */
     private String memDelYn;                /* 회원삭제여부 */
 
+    private String memJobNm;                /* 직업번호 */
+    private String memHobbyNm;             /* 취미번호 */
+
     @Override
     public String toString() {
         return ToStringBuilder.reflectionToString(this, ToStringStyle.MULTI_LINE_STYLE);
@@ -125,5 +128,21 @@ public class MemberVO {
 
     public void setMemDelYn(String memDelYn) {
         this.memDelYn = memDelYn;
+    }
+
+    public String getMemJobNm() {
+        return memJobNm;
+    }
+
+    public void setMemJobNm(String memJobNm) {
+        this.memJobNm = memJobNm;
+    }
+
+    public String getMemHobbyNm() {
+        return memHobbyNm;
+    }
+
+    public void setMemHobbyNm(String memHobbyNm) {
+        this.memHobbyNm = memHobbyNm;
     }
 }
