@@ -22,41 +22,41 @@ public class BFrontServlet extends HttpServlet {
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String uri = req.getRequestURI();
-
-        if(uri.equals("/free/freeList.wow")){
-            // list로 오면 여기..
-            IFreeBoardService freeBoardService = new FreeBoardServiceImpl();
-            List<FreeBoardVO> freeBoardList = freeBoardService.getBoardList();
-            req.setAttribute("freeBoardList", freeBoardList);
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/free/freeList.jsp");
-            requestDispatcher.forward(req,resp);
-        }else if(uri.equals("/free/freeView.wow")){
-            // view로 오면 여기..
-            int boNo = Integer.parseInt(req.getParameter("boNo"));
-            IFreeBoardService freeBoardService = new FreeBoardServiceImpl();
-            try {
-                FreeBoardVO freeBoard = freeBoardService.getBoard(boNo);
-                req.setAttribute("freeBoard", freeBoard);
-            } catch (BizNotFoundException bne) {
-                req.setAttribute("bne", bne);
-            }
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/free/freeView.jsp");
-            requestDispatcher.forward(req,resp);
-
-        }else if(uri.equals("/free/freeEdit.wow")){
-            // edit로 오면 여기..
-            int boNo = Integer.parseInt(req.getParameter("boNo"));
-            IFreeBoardService freeBoardService = new FreeBoardServiceImpl();
-            try {
-                FreeBoardVO freeBoard = freeBoardService.getBoard(boNo);
-                req.setAttribute("freeBoard", freeBoard);
-            } catch (BizNotFoundException bne) {
-                req.setAttribute("bne", bne);
-            }
-            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/free/freeEdit.jsp");
-            requestDispatcher.forward(req,resp);
-        }
+//        String uri = req.getRequestURI();
+//
+//        if(uri.equals("/free/freeList.wow")){
+//            // list로 오면 여기..
+//            IFreeBoardService freeBoardService = new FreeBoardServiceImpl();
+//            List<FreeBoardVO> freeBoardList = freeBoardService.getBoardList();
+//            req.setAttribute("freeBoardList", freeBoardList);
+//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/free/freeList.jsp");
+//            requestDispatcher.forward(req,resp);
+//        }else if(uri.equals("/free/freeView.wow")){
+//            // view로 오면 여기..
+//            int boNo = Integer.parseInt(req.getParameter("boNo"));
+//            IFreeBoardService freeBoardService = new FreeBoardServiceImpl();
+//            try {
+//                FreeBoardVO freeBoard = freeBoardService.getBoard(boNo);
+//                req.setAttribute("freeBoard", freeBoard);
+//            } catch (BizNotFoundException bne) {
+//                req.setAttribute("bne", bne);
+//            }
+//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/free/freeView.jsp");
+//            requestDispatcher.forward(req,resp);
+//
+//        }else if(uri.equals("/free/freeEdit.wow")){
+//            // edit로 오면 여기..
+//            int boNo = Integer.parseInt(req.getParameter("boNo"));
+//            IFreeBoardService freeBoardService = new FreeBoardServiceImpl();
+//            try {
+//                FreeBoardVO freeBoard = freeBoardService.getBoard(boNo);
+//                req.setAttribute("freeBoard", freeBoard);
+//            } catch (BizNotFoundException bne) {
+//                req.setAttribute("bne", bne);
+//            }
+//            RequestDispatcher requestDispatcher = req.getRequestDispatcher("/WEB-INF/views/free/freeEdit.jsp");
+//            requestDispatcher.forward(req,resp);
+//        }
 
 
     }

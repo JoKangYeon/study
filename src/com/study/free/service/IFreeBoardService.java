@@ -2,12 +2,14 @@ package com.study.free.service;
 
 import java.util.List;
 
+import com.study.common.vo.PagingVO;
 import com.study.exception.BizNotFoundException;
 import com.study.exception.BizPasswordNotMatchedException;
+import com.study.free.vo.FreeBoardSearchVO;
 import com.study.free.vo.FreeBoardVO;
 
 public interface IFreeBoardService {
-	public List<FreeBoardVO> getBoardList();
+	public List<FreeBoardVO> getBoardList(PagingVO paging, FreeBoardSearchVO search);
 	public FreeBoardVO getBoard(int boNo) throws BizNotFoundException;
 	public void modifyBoard(FreeBoardVO freeBoard) 
 			throws BizPasswordNotMatchedException ;

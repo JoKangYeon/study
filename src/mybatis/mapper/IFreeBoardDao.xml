@@ -12,7 +12,26 @@
 
      -->
 
+    <select id="getTotalRowCount" resultType="java.lang.Integer">
+        SELECT count(*)
+        FROM free_board
+        WHERE bo_del_yn = 'N'
+
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(search.searchWord)">
+            <if test='search.searchType == "T"'> AND bo_title LIKE '%' || #{search.searchWord} || '%' </if>
+            <if test='search.searchType == "W"'> AND bo_writer LIKE '%' || #{search.searchWord} || '%' </if>
+            <if test='search.searchType == "C"'> AND bo_content LIKE '%' || #{search.searchWord} || '%' </if>
+        </if>
+
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(search.searchCategory)">
+            AND bo_category = #{search.searchCategory}
+        </if>
+
+    </select>
+
     <select id="getBoardList" resultType="com.study.free.vo.FreeBoardVO">
+        SELECT * from (
+                          SELECT a.*, rownum AS rnum from (
         SELECT
             bo_no,      bo_title,       bo_category,
             bo_writer,  bo_pass,        bo_content,
@@ -26,7 +45,19 @@
             free_board a, comm_code b
         WHERE  bo_del_yn='N'
         AND a.bo_category = b.comm_cd
-        ORDER BY bo_no asc
+
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(search.searchWord)">
+            <if test='search.searchType == "T"'> AND bo_title LIKE '%' || #{search.searchWord} || '%' </if>
+            <if test='search.searchType == "W"'> AND bo_writer LIKE '%' || #{search.searchWord} || '%' </if>
+            <if test='search.searchType == "C"'> AND bo_content LIKE '%' || #{search.searchWord} || '%' </if>
+        </if>
+
+        <if test="@org.apache.commons.lang3.StringUtils@isNotBlank(search.searchCategory)">
+            AND bo_category = #{search.searchCategory}
+        </if>
+
+        ORDER BY bo_no DESC ) a ) b
+        WHERE rnum BETWEEN #{paging.firstRow} and #{paging.lastRow}
 
     </select>
 

@@ -8,8 +8,8 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 public class PagingVO implements Serializable {
 	public static void main(String[] args) {
 		PagingVO pagingVO=new PagingVO();
-		pagingVO.setCurPage(16);	// ROW는 한페이지 당 10 개
-		pagingVO.setTotalRowCount(155);
+		pagingVO.setCurPage(64);	// ROW는 한페이지 당 10 개
+		pagingVO.setTotalRowCount(637);
 		pagingVO.pageSetting();
 		System.out.println(pagingVO);
 	}
@@ -35,17 +35,18 @@ public class PagingVO implements Serializable {
 	public void pageSetting() {
 
 		firstRow = curPage * rowSizePerPage - (rowSizePerPage-1);
-		lastRow = curPage * rowSizePerPage;
-		totalPageCount = (totalRowCount / rowSizePerPage) + 1;
+		totalPageCount = ((totalRowCount-1) / rowSizePerPage) + 1;
 		firstPage =  ((curPage-1) / pageSize) * pageSize + 1;
 
-		lastPage = curPage / pageSize * pageSize + pageSize;
+		lastPage = ((curPage-1) / pageSize) * pageSize + pageSize;
 
 		if(lastPage > totalPageCount){
 			lastPage = totalPageCount;
 		}
 		if(curPage == totalPageCount){
 			lastRow = totalRowCount;
+		}else{
+			lastRow = curPage * rowSizePerPage;
 		}
 
 

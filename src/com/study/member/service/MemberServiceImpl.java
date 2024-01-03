@@ -1,10 +1,12 @@
 package com.study.member.service;
 
 import com.study.common.util.MybatisSqlSessionFactory;
+import com.study.common.vo.PagingVO;
 import com.study.exception.BizDuplicateKeyException;
 import com.study.exception.BizNotFoundException;
 import com.study.free.dao.IFreeBoardDao;
 import com.study.member.dao.IMemberDao;
+import com.study.member.vo.MemberSearchVO;
 import com.study.member.vo.MemberVO;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -17,10 +19,15 @@ public class MemberServiceImpl implements IMemberService {
     SqlSessionFactory sqlSessionFactory = MybatisSqlSessionFactory.getSqlSessionFactory();
 
     @Override
-    public List<MemberVO> getMemberList() {
+    public List<MemberVO> getMemberList(PagingVO paging, MemberSearchVO search) {
         try (SqlSession session = sqlSessionFactory.openSession(true)) {
             IMemberDao iMemberDao = session.getMapper(IMemberDao.class);
-            return iMemberDao.getMemberList();
+
+            int totalRowCount = iMemberDao.getMemberCount(paging, search);
+            paging.setTotalRowCount(totalRowCount);
+            paging.pageSetting();
+
+            return iMemberDao.getMemberList(paging, search);
         }
     }
 

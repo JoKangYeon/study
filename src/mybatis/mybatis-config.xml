@@ -20,6 +20,6 @@
     <mappers>
         <mapper resource="mybatis/mapper/IFreeBoardDao.xml"></mapper>
         <mapper resource="mybatis/mapper/IMemberDao.xml"></mapper>
-        <mapper resource="mybatis/mapper/ICommCodeDao.xml"></mapper>
+        <mapper resource="mybatis/mapper/ICommCodeDao.xml"></mapper>   
     </mappers>
 </configuration>

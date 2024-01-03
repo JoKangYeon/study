@@ -22,6 +22,67 @@
 
 
 <div class="container">
+
+    <!-- START : 검색 폼  -->
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <form name="search" action="freeList.wow" method="post" class="form-horizontal">
+                <input type="hidden" name="curPage" value="${paging.curPage}"> <input type="hidden" name="rowSizePerPage" value="${paging.rowSizePerPage}">
+                <div class="form-group">
+                    <label for="id_searchType" class="col-sm-2 control-label">검색</label>
+                    <div class="col-sm-2">
+                        <select id="id_searchType" name="searchType" class="form-control input-sm">
+                            <option value="T" ${search.searchType eq "T" ? "selected='selected'" : ""}>제목</option>
+                            <option value="W" ${search.searchType eq "W" ? "selected='selected'" : ""}>작성자</option>
+                            <option value="C" ${search.searchType eq "C" ? "selected='selected'" : ""}>내용</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2">
+                        <input type="text" name="searchWord" class="form-control input-sm" value="${search.searchWord}" placeholder="검색어">
+                    </div>
+                    <label for="id_searchCategory" class="col-sm-2 col-sm-offset-2 control-label">분류</label>
+                    <div class="col-sm-2">
+                        <select id="id_searchCategory" name="searchCategory" class="form-control input-sm">
+                            <option value="">-- 전체 --</option>
+                            <c:forEach items="${cateList}" var="code">
+                                <option value="${code.commCd}" ${search.searchCategory  eq code.commCd ? "selected='selected'" : ""}>${code.commNm}</option>
+                            </c:forEach>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-2 col-sm-offset-9 text-right">
+                        <button type="button" id="id_btn_reset" class="btn btn-sm btn-default">
+                            <i class="fa fa-sync"></i> &nbsp;&nbsp;초기화
+                        </button>
+                    </div>
+                    <div class="col-sm-1 text-right">
+                        <button type="submit" class="btn btn-sm btn-primary ">
+                            <i class="fa fa-search"></i> &nbsp;&nbsp;검 색
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- END : 검색 폼  -->
+
+    <!-- START : 목록건수 및 새글쓰기 버튼  -->
+    <div class="row" style="margin-bottom: 10px;">
+        <div class="col-sm-3 form-inline">
+            전체 ${paging.totalRowCount}건 조회
+            <select id="id_rowSizePerPage" name="rowSizePerPage" class="form-control input-sm">
+                <c:forEach var="i" begin="10" end="50" step="10">
+                    <option value="${i}" ${paging.rowSizePerPage  eq i ? "selected='selected'" : ""} >${i}</option>
+                </c:forEach>
+            </select>
+        </div>
+    </div>
+    <!-- END : 목록건수 및 새글쓰기 버튼  -->
+
+
+
+
     <div class="page-header">
         <h3>자유게시판 - <small>글 목록</small></h3>
     </div>
@@ -69,8 +130,134 @@
         </c:forEach>
         </tbody>
     </table>
+
+    ${paging}
+
+    <!-- START : 페이지네이션  -->
+    <nav class="text-center">
+        <ul class="pagination">
+
+            <!-- 첫 페이지  -->
+            <li><a href="freeList.wow?curPage=1" data-page="1"><span aria-hidden="true">&laquo;</span></a></li>
+
+
+            <!-- 이전 페이지 -->
+            <c:if test="${paging.curPage > paging.rowSizePerPage}">
+                <li><a href="freeList.wow?curPage=${paging.firstPage -1}" data-page="${paging.firstPage -1}"><span aria-hidden="true">&lt;</span></a></li>
+            </c:if>
+
+            <!-- 페이지 넘버링  -->
+
+
+            <c:forEach begin="${paging.firstPage}" end="${paging.lastPage}" var="i">
+                <li ${paging.curPage eq i ? 'class="active"': ""}><a href="freeList.wow?curPage=${i}" data-page="${i}">${i}</a></li>
+            </c:forEach>
+<%--            <li><a href="freeList.wow?curPage=6" data-page="6">6</a></li>--%>
+<%--            <li><a href="freeList.wow?curPage=7" data-page="7">7</a></li>--%>
+<%--            <li><a href="freeList.wow?curPage=8" data-page="8">8</a></li>--%>
+<%--            <li class="active"><a href="#">9</a></li>--%>
+<%--            <li><a href="freeList.wow?curPage=10" data-page="10">10</a></li>--%>
+
+            <!-- 다음  페이지  -->
+            <c:if test="${paging.totalPageCount != paging.lastPage}">
+                <li><a href="freeList.wow?curPage=${paging.lastPage + 1}" data-page="${paging.lastPage + 1}"><span aria-hidden="true">&gt;</span></a></li>
+            </c:if>
+
+            <!-- 마지막 페이지 -->
+            <li><a href="freeList.wow?curPage=${paging.totalPageCount}" data-page="${paging.totalPageCount}"><span aria-hidden="true">&raquo;</span></a></li>
+        </ul>
+    </nav>
+    <!-- END : 페이지네이션  -->
+
+
 </div><!-- container -->
 </body>
+
+
+<script type="text/javascript">
+
+    // 각 이벤트 등록
+    // 페이지 링크 클릭, event전파방지, data속성값읽고 form태그 내의 input name=curPage값 바꾸기
+    //submit
+
+    const elPagination = document.querySelectorAll('ul.pagination li a')
+    let formInput = document.querySelector("input[name=curPage]")
+    const formTag = document.querySelector(".form-horizontal")
+
+
+    elPagination.forEach(el => {
+        el.addEventListener("click", (e) => {
+            e.preventDefault()
+            formInput.value = el.dataset['page']
+            formTag.submit()
+
+        })
+    })
+
+
+
+
+    // $('ul.pagination li a[data-page]').click(function(e) {
+    //     e.preventDefault();
+    //     let page = $(this).data("page");
+    //
+    // }); // ul.pagination li a[data-page]
+
+
+    //form태그내의 버튼 클릭
+    //이벤트전파방지, curPage 값 1로
+    //submit
+
+
+    const submitBtn = document.querySelector("button[type=submit]")
+    submitBtn.addEventListener("click", (e) => {
+        e.preventDefault()
+        formInput.value = 1
+        formTag.submit()
+
+    })
+
+
+
+    // $form.find("button[type=submit]").click(function(e) {
+    //
+    // });
+
+
+
+
+    // 목록 갯수 변경
+    // id_rowSizePerPage 변경되었을 때
+    // 페이지 1, 목록수 = 현재값 으로 변경 후 서브밋
+    $('#id_rowSizePerPage').change(function(e) {
+
+    }); // '#id_rowSizePerPage'.change
+
+    document.querySelector("#id_rowSizePerPage").addEventListener("change", (e) => {
+        let a = document.querySelector("input[name=rowSizePerPage]")
+        a.value = e.target.value
+        formTag.submit()
+    })
+
+
+
+
+    // 초기화 버튼 클릭
+    const resetBtn = document.querySelector("#id_btn_reset")
+    const formTitle = document.querySelector("#id_searchType")
+    const formSearch = document.querySelector("input[name=searchWord]")
+    const formCate = document.querySelector("#id_searchCategory")
+
+    resetBtn.addEventListener("click", () => {
+        formTitle.value = ""
+        formSearch.value = ""
+        formCate.value = ""
+        formInput.value = 1
+        formTag.submit()
+    })
+
+</script>
+
 </html>
 
 
